@@ -1,3 +1,10 @@
+# Disclaimer
+
+This is by no means a professional guide. I wrote this to summarize my very very basic understanding of docker and kubernetes, this guide is meant to provide the baby steps to just get started from not knowing what kubernetes is to deploying a Hello World page.
+
+All non-hateful comments are welcome, I would love to have comments correcting any wrong info I've written.
+
+
 # Getting Started: Docker / Kubernates
 
 
