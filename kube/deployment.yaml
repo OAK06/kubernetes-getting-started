@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: getting-started
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: getting-started
+  template:
+    metadata:
+      labels:
+        app: getting-started
+    spec:
+      containers:
+        - name: getting-started
+          image: ghcr.io/oak06/getting-started:0.1
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          env:
+            - name: db_name
+              value: getting-started-db
+            - name: db_user
+              value: admin
+            - name: db_password
+              valueFrom:
+                secretKeyRef:
+                  name: getting-started-db
+                  key: password
+      imagePullSecrets:
+        - name: github

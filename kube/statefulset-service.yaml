@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: getting-started-stateful
+  labels:
+    app: getting-started-stateful
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+  selector:
+    app: getting-started-stateful
