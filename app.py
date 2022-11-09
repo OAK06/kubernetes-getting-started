@@ -18,17 +18,12 @@ def hello():
         version = ""
         for i in result:
             version = i
-        html = "DB Version: {version}"
+        html += " | DB Version: {version}"
         html = html.format(version=version)
     except Exception as e:
         html = str(e)
 
     return html
-
-
-@app.route("/test")
-def test():
-    return "Test"
 
 
 if __name__ == "__main__":

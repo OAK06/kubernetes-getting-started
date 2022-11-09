@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: getting-started-stateful
-          image: ghcr.io/oak06/kubernetes-getting-started-db:0.7
+          image: ghcr.io/oak06/kubernetes-getting-started:0.2
           ports:
             - containerPort: 80
               protocol: TCP
