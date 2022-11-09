@@ -6,7 +6,7 @@
 The basic idea of docker is creating a virtual environment that runs the project, the virtual environment
 should contain everything the project needs ex: configurations, dependencies, etc...
 
-Steps:
+*Steps:*
 - Install Docker
 - Create a Dockerfile in the root of the project
 - Create an image from the project
@@ -41,7 +41,7 @@ Kubernetes is an online service provided by hosting sites such as DigitalOcean, 
 You'll need to create an account and start a Kubernetes cluster before doing anything (Costs money on a monthly basis).
 The following steps are for DigitalOcean's Kubernetes environment.
 
-Steps:
+*Steps:*
 - Through DigitalOcean's control panel create a Kubernetes Cluster.
 - To access the cluster you need to create a personal access token: `https://cloud.digitalocean.com/account/api/tokens`
 - Install Kubectl & Doctl, these are command line tools used to access your Kubernetes environment.
@@ -50,8 +50,8 @@ Steps:
 - Your Kubernetes cluster will need access to your ghcr registry when pulling the image
     - You can create a secret in your cluster that hold's its your github access token's value using kubectl
     - Command: `kubectl create secret docker-registry <label> --docker-server=https://ghcr.io --docker-username=<username> --docker-password=<github personal access token> --docker-email=<github email>`
-- Now you can proceed to deploy your image either manually using commands or using .yaml files (.yaml is easier)
-    - Example (You don't need to name the files like the following):
+- Now you can proceed to deploy your image either manually using commands or using .yaml files (.yaml is easier & you can name the files as you like):
+    - *Deploying Flask App:*
         - `deployment.yaml` (Configuration for the containers)
         - `service.yaml` (Configuration for the provided service enabling access to your containers, ex: http access)
         - You can execute these yaml files using kubectl:
@@ -60,6 +60,12 @@ Steps:
             - Command `kubectl expose deployments <deployment-name> --type=LoadBalancer --port=<external-port> --target-port=<internal-port>`
         - You can run this command to find your external IP: `doctl compute load-balancer list --format Name,Created,IP,Status`
         - Or you can find the IP through the Kubernetes Dashboard on DigitalOcean
-    - In this repo you'll find .yaml files for a stateful set, the stateful set creates pods that are stateful.
-        - This means that regardless of what Kubernetes does to your pod, it will always come back using the same name, it also uses a number increment instead of a random string in the name. 
-        - Ex: pod-01, pod-02, pod-03
+        - In this repo you'll find a statefulset.yaml file, the stateful set creates pods that are stateful.
+            - This means that regardless of what Kubernetes does to your pod, it will always come back using the same name, it also uses a number increment instead of a random string in the name. 
+            - Ex: pod-01, pod-02, pod-03
+    - *Deploying Postgres DB:*
+        - The following are files to deploy a DB, you can apply them in the order they are listed:
+            - `db-configmap.yaml`
+            - `db-storage.yaml` (Configuration for setting up a volume connected to the DB pod, this is to save the data)
+            - `db-deployment.yaml`
+            - `db-service.yaml`
