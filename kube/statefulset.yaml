@@ -15,19 +15,24 @@ spec:
     spec:
       containers:
         - name: getting-started-stateful
-          image: ghcr.io/oak06/getting-started:0.1
+          image: ghcr.io/oak06/kubernetes-getting-started:0.2
           ports:
             - containerPort: 80
               protocol: TCP
           env:
-            - name: db_name
-              value: getting-started-db
-            - name: db_user
-              value: admin
-            - name: db_password
+            - name: DB_HOST
+              value: postgres-service.default.svc.cluster.local
+            - name: DB_NAME
+              value: getting_started
+            - name: DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: getting-started-db
+                  name: db-credentials
+                  key: user
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
                   key: password
       imagePullSecrets:
         - name: github
